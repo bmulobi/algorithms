@@ -5,7 +5,7 @@
      *
      * @return int|string
      */
-    function binarySearch(array $input, $needle) {
+    function binarySearch(Array $input, $needle) {
         $length = count($input);
 
         if (!$length) {
