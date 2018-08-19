@@ -1,11 +1,11 @@
 <?php
     /**
      * @param array $input  search space
-     * @param mixed $needle what we're searching for
+     * @param mixed $needle search value
      *
      * @return int|string
      */
-    function binarySearch(Array $input, $needle) {
+    function iterativeBinarySearch(Array $input, $needle) {
         $length = count($input);
 
         if (!$length) {
@@ -31,4 +31,29 @@
         }
 
         return -1;
+    }
+
+    /**
+     * @param array $input  search space
+     * @param int   $low    first position
+     * @param int   $high   last position
+     * @param mixed $needle search value
+     * @return int|string
+     */
+    function recursiveBinarySearch(Array $input, $low, $high /* length - 1 for first call */, $needle) {
+        $length = count($input);
+
+        if (!$length) {
+            return "Input is empty";
+        } elseif ($high < $low) { return -1; }
+
+        $midPosition = floor(($low + $high) / 2);
+
+        if ($needle == $input[$midPosition]) {
+            return $midPosition;
+        } elseif ($needle < $input[$midPosition]) {
+            return recursiveBinarySearch($input, $low, $midPosition - 1, $needle);
+        } else {
+            return recursiveBinarySearch($input, $midPosition + 1, $high, $needle);
+        }
     }

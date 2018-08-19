@@ -2,7 +2,7 @@
 
     /**
      * @param array $input  search space
-     * @param mixed $needle what we're searching for
+     * @param mixed $needle search value
      *
      * @return int|string
      */
