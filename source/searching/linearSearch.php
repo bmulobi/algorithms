@@ -1,6 +1,9 @@
 <?php
 
     /**
+     * O(n) worst case
+     * O(1) best case
+     *
      * @param array $input  search space
      * @param mixed $needle search value
      *

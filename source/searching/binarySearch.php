@@ -1,5 +1,7 @@
 <?php
     /**
+     * O(Log n)
+     *
      * @param array $input  search space
      * @param mixed $needle search value
      *
