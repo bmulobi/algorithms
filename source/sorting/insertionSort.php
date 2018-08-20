@@ -22,3 +22,23 @@
 
         return $input;
     }
+
+
+    function recursiveInsertionSort(Array $input, $steps) {
+        if ($steps <= 1) { return $input; }
+
+        $input = recursiveInsertionSort($input, $steps - 1);
+
+        // insert last element at it's correct
+        // position in sorted array
+        $last = $input[$steps - 1];
+        $i = $steps - 2;
+
+        while($i >= 0 && $input[$i] > $last) {
+            $input[$i + 1] = $input[$i];
+            $i -= 1;
+        }
+        $input[$i + 1] = $last;
+
+        return $input;
+    }
