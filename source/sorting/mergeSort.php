@@ -1,7 +1,7 @@
 <?php
 
     /**
-     * @param array $input search space
+     * @param array $input
      * @param int   $left first index
      * @param int   $midPoint mid index
      * @param int   $right last index
@@ -54,7 +54,9 @@
     }
 
     /**
-     * @param array $input search space
+     * complexity theta(nlogn)
+     *
+     * @param array $input items to sort
      * @param int   $left  first index
      * @param int   $right last index
      */

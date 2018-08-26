@@ -4,7 +4,7 @@
      * O(n2) worst case
      * O(n) best case, array already sorted
      *
-     * @param array $input search space
+     * @param array $input
      * @return array
      */
     function iterativeInsertionSort(Array $input) {
@@ -27,7 +27,7 @@
     /**
      * no perfomance improvement over iterative
      *
-     * @param array $input search space
+     * @param array $input
      * @param int   $steps steps
      * @return array
      */
