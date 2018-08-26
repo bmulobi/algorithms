@@ -22,7 +22,7 @@
                 }
             }
 
-            if ($stop) { break; }
+            if ($stop) { break; } // optimisation
         }
 
         return $input;

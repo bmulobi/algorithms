@@ -24,6 +24,13 @@
     }
 
 
+    /**
+     * no perfomance improvement over iterative
+     *
+     * @param array $input search space
+     * @param int   $steps steps
+     * @return array
+     */
     function recursiveInsertionSort(Array $input, $steps) {
         if ($steps <= 1) { return $input; }
 
