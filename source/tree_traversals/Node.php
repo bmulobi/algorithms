@@ -1,6 +1,6 @@
 <?php
     /**
-     * Blueprint for a tree data structure node
+     * Blueprint for a binary tree data structure node
      * Class Node
      */
     class Node
