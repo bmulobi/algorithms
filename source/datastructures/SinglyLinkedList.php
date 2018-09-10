@@ -6,7 +6,7 @@ class SinglyLinkedList
 {
     private $head;
 
-    public function __construct(SinglyLinkedListNode $node) {
+    public function __construct($node = null) {
         $this->head = $node;
     }
 
@@ -91,7 +91,6 @@ class SinglyLinkedList
     }
 }
 
-
 $list = new SinglyLinkedList(new SinglyLinkedListNode(0));
 $list->append(1);
 $list->append(2);
@@ -101,4 +100,7 @@ $list->append(5);
 $list->append(6);
 $list->append(7);
 
-var_dump($list->getHead(), $list->getTail());
+var_dump($list->getHead()->getData(), $list->getTail()->getData());
+
+$list->delete(0);
+var_dump($list->getHead()->getData());
