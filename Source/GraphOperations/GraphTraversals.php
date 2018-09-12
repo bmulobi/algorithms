@@ -1,6 +1,6 @@
 <?php
-require_once "source/Datastructures/Graphs/Graph";
-require_once "Source/Datastructures/AdjacencyListGraph.php";
+require_once "Source/Datastructures/Graphs/Graph.php";
+require_once "Source/Datastructures/Graphs/AdjacencyListGraph.php";
 require_once "Source/Datastructures/Stack.php";
 
 class GraphTraversals
@@ -17,31 +17,38 @@ class GraphTraversals
         $visited = [];
         $stack = new Stack();
         $stack->push($startVertex);
-        $visited[] = $startVertex;
+        $visited[$startVertex] = $startVertex;
+        // get vertex at top of stack
+        $currentVertex = $stack->peek();
+        // linked list of adjacent vertices
+        $currentAdjacentVertex = $this->graph->getAdjacentVertices($currentVertex)->getHead();
 
         while (!$stack->isEmpty()) {
-            // get vertex at top of stack
-            $currentVertex = $stack->peek();
-            // linked list of adjacent vertices
-            $currentAdjacentVertex = $this->graph->getVertex($currentVertex)->getHead();
-
             $hasUnvisitedAdjacentVertices = false;
+
             while ($currentAdjacentVertex) {
-                $vertex = $visited[$currentAdjacentVertex->getData()->endVertex] ?? null;
+                $vertex = $currentAdjacentVertex->getData()->endVertex;
+                $isVisited = ($visited[$vertex] ?? null) === $vertex;
 
                 // if $vertex is not yet visited
-                if (!$vertex) {
+                if (!$isVisited) {
                     $hasUnvisitedAdjacentVertices = true;
                     $stack->push($vertex);
-                    $visited[] = $vertex;
+                    $visited[$vertex] = $vertex;
                     break;
                 }
+                $currentAdjacentVertex = $currentAdjacentVertex->getNext();
             }
 
             if (!$hasUnvisitedAdjacentVertices) {
                 $stack->pop();
             }
-            $currentAdjacentVertex = $stack->peek();
+
+            if (!$stack->isEmpty()) {
+                $currentAdjacentVertex = $this->graph->getAdjacentVertices($stack->peek())->getHead();
+            } else {
+                $currentAdjacentVertex = null;
+            }
         }
         // array of graph vertices in DFS order
         return $visited;

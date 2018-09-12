@@ -4,5 +4,5 @@ interface Graph
 {
     public function createGraph();
     public function addEdge($startVertex, $endVertex, $weight = null);
-    public function getVertex($vertex);
+    public function getAdjacentVertices($vertex);
 }
