@@ -46,7 +46,8 @@ $graph->addEdge('H', 'G');
 
 $traverser = new GraphTraversals($graph);
 
-var_dump($traverser->depthFirstSearch('G'));
+//var_dump($traverser->depthFirstSearch('G'));
+var_dump($traverser->breadthFirstSearch('G'));
 
 
 //$graph = (new AdjacencyListGraph(['Nairobi', 'Mombasa', 'Machakos', 'Thika', 'Nakuru']))->createGraph();

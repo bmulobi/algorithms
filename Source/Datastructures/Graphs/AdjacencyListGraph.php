@@ -48,4 +48,9 @@ class AdjacencyListGraph implements Graph
     {
         return $this->adjacencyList[$vertex];
     }
+
+    public function isConnected($startVertex, $endVertex)
+    {
+        // TODO: Implement isConnected() method.
+    }
 }
