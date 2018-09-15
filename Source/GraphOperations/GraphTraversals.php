@@ -65,18 +65,19 @@ class GraphTraversals
             $currentVertex = $queue->deQueue();
             // use vertex as key to enable O(1) random access
             $visited[$currentVertex] = $currentVertex;
-            echo $currentVertex . "\n";
 
             $currentAdjacentVertex = $this->graph->getAdjacentVertices($currentVertex)->getHead();
             while ($currentAdjacentVertex) {
                 $vertex = $visited[$currentAdjacentVertex->getData()->endVertex] ?? null;
+
+                // enqueue all unvisited adjacent vertices
                 if (!$vertex) {
-                    $queue->enQueue($vertex);
+                    $queue->enQueue($currentAdjacentVertex->getData()->endVertex);
                 }
                 $currentAdjacentVertex = $currentAdjacentVertex->getNext();
             }
         }
-
+        // array of graph vertices in BFS order
         return $visited;
     }
 }
