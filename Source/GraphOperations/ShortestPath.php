@@ -22,6 +22,7 @@ class ShortestPath
         $countVertices = $this->graph->getNumberOfVertices();
 
         // initialise shortest known distance to each vertex from source vertex
+        // priority queue would eliminate this loop
         foreach ($unVisited as $vertex) {
             if ($vertex === $sourceVertex) {
                 $result[$vertex]['shortestDistance'] = 0;
