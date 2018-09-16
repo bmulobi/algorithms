@@ -28,4 +28,12 @@
         public function setNext($next) {
             $this->next = $next;
         }
+
+        public function getPrevious() {
+            return $this->previous;
+        }
+
+        public function setPrevious($previous) {
+            $this->previous = $previous;
+        }
     }
