@@ -1,9 +1,8 @@
 <?php
 /* driver program to test graph algorithms */
-
 require_once "Source/Datastructures/Graphs/AdjacencyListGraph.php";
 require_once "Source/GraphOperations/GraphTraversals.php";
-
+require_once "Source/GraphOperations/ShortestPath.php";
 
 // unweighted graph
 $graph = (new AdjacencyListGraph(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']))->createGraph();
@@ -81,7 +80,6 @@ $traverser = new GraphTraversals($graph1);
 var_dump($traverser->depthFirstSearch('A'));
 var_dump($traverser->breadthFirstSearch('A'));
 
-
 // output
 /*
     array(8) {
@@ -157,3 +155,75 @@ array(8) {
   string(1) "H"
 }
 */
+
+$weightedGraph = (new AdjacencyListGraph(['A', 'B', 'C', 'D', 'E']))->createGraph();
+
+$weightedGraph->addEdge('A', 'B', 6);
+$weightedGraph->addEdge('A', 'D', 1);
+
+$weightedGraph->addEdge('B', 'A', 6);
+$weightedGraph->addEdge('B', 'C', 5);
+$weightedGraph->addEdge('B', 'D', 2);
+$weightedGraph->addEdge('B', 'E', 2);
+
+$weightedGraph->addEdge('C', 'B', 5);
+$weightedGraph->addEdge('C', 'E', 5);
+
+$weightedGraph->addEdge('D', 'A', 1);
+$weightedGraph->addEdge('D', 'B', 2);
+$weightedGraph->addEdge('D', 'E', 1);
+
+$weightedGraph->addEdge('E', 'B', 2);
+$weightedGraph->addEdge('E', 'C', 5);
+$weightedGraph->addEdge('E', 'D', 1);
+
+
+$traverser = new ShortestPath($weightedGraph);
+
+$result = $traverser->dijkstra('E');
+var_dump($result);
+
+/*  output
+
+  array(5) {
+  ["A"]=>
+  array(2) {
+    ["shortestDistance"]=>
+    int(2)
+    ["previousVertex"]=>
+    string(1) "D"
+  }
+  ["B"]=>
+  array(2) {
+    ["shortestDistance"]=>
+    int(2)
+    ["previousVertex"]=>
+    string(1) "E"
+  }
+  ["C"]=>
+  array(2) {
+    ["shortestDistance"]=>
+    int(5)
+    ["previousVertex"]=>
+    string(1) "E"
+  }
+  ["D"]=>
+  array(2) {
+    ["shortestDistance"]=>
+    int(1)
+    ["previousVertex"]=>
+    string(1) "E"
+  }
+  ["E"]=>
+  array(1) {
+    ["shortestDistance"]=>
+    int(0)
+  }
+}
+*/
+
+$traverser->printShortestDistance($result, 'E', 'A');
+// output = Shortest path from E to A is: E -> D -> A with distance: 2
+
+$traverser->printShortestDistance($result, 'E', 'E');
+// output = Shortest path from E to E is: E with distance: 0
