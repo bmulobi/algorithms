@@ -51,6 +51,22 @@ class AdjacencyListGraph implements Graph
 
     public function isConnected($startVertex, $endVertex)
     {
-        // TODO: Implement isConnected() method.
+        $node = $this->adjacencyList[$startVertex]->getHead();
+        while($node) {
+            if ($node->getData()->endVertex === $endVertex) {
+                return true;
+            }
+            $node = $node->getNext();
+        }
+
+        return false;
+    }
+
+    public function getNumberOfVertices() {
+        return count($this->vertices);
+    }
+
+    public function getAdjacencyList() {
+        return $this->adjacencyList;
     }
 }

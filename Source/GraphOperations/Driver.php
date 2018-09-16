@@ -70,6 +70,7 @@ $graph1->addEdge('F', 'B');
 $graph1->addEdge('G', 'E');
 $graph1->addEdge('G', 'A');
 
+var_dump($graph1->isConnected('F', 'D'));
 
 $traverser = new GraphTraversals($graph);
 var_dump($traverser->depthFirstSearch('G'));

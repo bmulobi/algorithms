@@ -6,4 +6,5 @@ interface Graph
     public function addEdge($startVertex, $endVertex, $weight = null);
     public function getAdjacentVertices($vertex);
     public function isConnected($startVertex, $endVertex);
+    public function getNumberOfVertices();
 }
