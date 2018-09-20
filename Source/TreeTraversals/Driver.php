@@ -10,13 +10,23 @@
     require_once "Source/Datastructures/BinarySearchTree.php";
 
 
-    $bst = (new BinarySearchTree([1,5,9,3,90,22,44,77,13,11,13,77]));
+    $bst = (new BinarySearchTree([5,9,3,90,22,44,77,13,11,13,77,1]));
 
 
     echo "inOrder traversal result\n";
     (new InorderTraversal())->traverse($bst->getRoot());
     echo PHP_EOL;
 
+
+    $root = $bst->getRoot();
+    var_dump($root->getData());
+    $bst->delete($root, 90);
+    var_dump($bst->getRoot()->getData());
+
+
+    echo "inOrder traversal result\n";
+    (new InorderTraversal())->traverse($bst->getRoot());
+    echo PHP_EOL;
     exit;
 
 

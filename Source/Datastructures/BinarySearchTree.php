@@ -1,4 +1,5 @@
 <?php
+
 class BinarySearchTree
 {
     private $root;
@@ -39,11 +40,14 @@ class BinarySearchTree
             {
                 return $this->data;
             }
+
+            public function setData($data) {
+                $this->data = $data;
+            }
         };
     }
 
     public function insert(&$currentNode, $data) {
-        var_dump($currentNode);
         if ($currentNode === null) {
             $currentNode = $this->createNode($data);
         } else if($data <= $currentNode->data) {
@@ -56,12 +60,81 @@ class BinarySearchTree
         return $currentNode;
     }
 
-    public function delete($data) {
+    public function delete(&$currentNode, $data) {
+        if(!$currentNode) {
+            return $currentNode;
+        } elseif($data < $currentNode->getData()) {
+            $currentNode->left = $this->delete($currentNode->left, $data);
+        } elseif($data > $currentNode->getData()) {
+            $currentNode->right = $this->delete($currentNode->right, $data);
+        } else {
+            // case 1: target node is leaf node
+            if (null === $currentNode->left && null === $currentNode->right) {
+                $currentNode = null;
 
+              // case 2: target node has 2 children
+            } elseif ($currentNode->left && $currentNode->right) {
+                $minAtRightSubTree = $this->getMin($currentNode->right);
+                $currentNode->setData($minAtRightSubTree);
+
+                $this->delete($currentNode->right, $minAtRightSubTree);
+
+              // case 3: target node has left child only
+            } elseif($currentNode->left) {
+                $currentNode = $currentNode->left;
+
+              // case 4: target node has right child only
+            } elseif($currentNode->right) {
+                $currentNode = $currentNode->right;
+            }
+        }
+
+        return $currentNode;
     }
 
-    public function search($data) {
+    public function search(&$currentNode, $data) {
+        if (!$this->root) {
+             return false;
+        } elseif ($currentNode && ($data === $currentNode->getData())) {
+            return true;
+        } elseif($currentNode && ($data < $currentNode->getData())) {
+            return $this->search($currentNode->left, $data);
+        } elseif($currentNode && ($data > $currentNode->getData())) {
+             return $this->search($currentNode->right, $data);
+        }
 
+        return false;
+    }
+
+    /**
+     * @param $currentNode
+     * Pass in root node to get min of entire tree
+     * or any other node to get min of subtree rooted at that node
+     * @return node object
+     */
+    public function getMin($currentNode) {
+        if (!$this->getRoot()) {
+            return "Tree is empty";
+        }
+
+        while($currentNode->left) {
+            $currentNode = $currentNode->left;
+        }
+
+        return $currentNode->getData();
+    }
+
+    public function getMax() {
+        if (!$this->getRoot()) {
+            return "Tree is empty";
+        }
+
+        $currentNode = $this->getRoot();
+        while($currentNode->right) {
+            $currentNode = $currentNode->right;
+        }
+
+        return $currentNode->getData();
     }
 
     public function getRoot() {
