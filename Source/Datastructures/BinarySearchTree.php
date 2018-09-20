@@ -31,18 +31,26 @@ class BinarySearchTree
                 $this->left = $left;
                 $this->right = $right;
             }
+
+            /**
+             * @return mixed
+             */
+            public function getData()
+            {
+                return $this->data;
+            }
         };
     }
 
-    public function insert($currentNode, $data) {
-        if ($this->root === null) {
-            $this->root = $this->createNode($data);
-
-        } else if($data <= $this->root->data) {
-            $this->insert($this->root->left, $data);
+    public function insert(&$currentNode, $data) {
+        var_dump($currentNode);
+        if ($currentNode === null) {
+            $currentNode = $this->createNode($data);
+        } else if($data <= $currentNode->data) {
+            $currentNode->left = $this->insert($currentNode->left, $data);
 
         } else {
-            $this->insert($this->root->right, $data);
+            $currentNode->right = $this->insert($currentNode->right, $data);
         }
 
         return $currentNode;
@@ -54,5 +62,9 @@ class BinarySearchTree
 
     public function search($data) {
 
+    }
+
+    public function getRoot() {
+        return $this->root;
     }
 }

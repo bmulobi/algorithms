@@ -7,6 +7,22 @@
     require_once "PreorderTraversal.php";
     require_once "RecursiveLevelOrderTraversal.php";
     require_once "IterativeLevelOrderTraversal.php";
+    require_once "Source/Datastructures/BinarySearchTree.php";
+
+
+    $bst = (new BinarySearchTree([1,5,9,3,90,22,44,77,13,11,13,77]));
+
+
+    echo "inOrder traversal result\n";
+    (new InorderTraversal())->traverse($bst->getRoot());
+    echo PHP_EOL;
+
+    exit;
+
+
+
+
+
     // build a balanced BST
     $root = new Node(10);
 
