@@ -29,52 +29,32 @@ class MaxHeap extends BaseHeap implements Heap
 
     protected function heapifyDown($currentNodeIndex)
     {
-//        $currentNodeIndex = $currentNodeIndex;
-//        $leftChildIndex = $this->getLeftChildIndex($currentNodeIndex);
-//        $rightChildIndex = $this->getRightChildIndex($currentNodeIndex);
+        if ($this->hasLeftChild($currentNodeIndex) && $this->hasRightChild($currentNodeIndex)) {
+            if ($this->getLeftChild($currentNodeIndex) > $this->getRightChild($currentNodeIndex)
+            && $this->getLeftChild($currentNodeIndex) > $this->items[$currentNodeIndex]) {
+                $this->swap($this->items, $currentNodeIndex, $this->getLeftChildIndex($currentNodeIndex));
+                $currentNodeIndex = $this->getLeftChildIndex($currentNodeIndex);
+                $this->heapifyDown($currentNodeIndex);
+            } elseif ($this->getRightChild($currentNodeIndex) > $this->getLeftChild($currentNodeIndex)
+            && $this->getRightChild($currentNodeIndex) > $this->items[$currentNodeIndex]
+            ) {
+                $this->swap($this->items, $currentNodeIndex, $this->getRightChildIndex($currentNodeIndex));
+                $currentNodeIndex = $this->getRightChildIndex($currentNodeIndex);
+                $this->heapifyDown($currentNodeIndex);
+            }
 
-        if ($this->hasLeftChild($currentNodeIndex) &&
-            $this->getLeftChild($currentNodeIndex) > $this->items[$currentNodeIndex]
+        } elseif ($this->hasLeftChild($currentNodeIndex)
+            && $this->getLeftChild($currentNodeIndex) > $this->items[$currentNodeIndex]
         ) {
-            $this->swap($this->items, $currentNodeIndex, $this->getLeftChildIndex($currentNodeIndex));
+            $this->swap($this->items, $currentNodeIndex, $this->getLeftChild($currentNodeIndex));
             $currentNodeIndex = $this->getLeftChildIndex($currentNodeIndex);
             $this->heapifyDown($currentNodeIndex);
-
-        } elseif ($this->hasRightChild($currentNodeIndex) &&
-            $this->getRightChild($currentNodeIndex) > $this->items[$currentNodeIndex]
+        } elseif ($this->hasRightChild($currentNodeIndex)
+            && $this->getRightChild($currentNodeIndex) > $this->items[$currentNodeIndex]
         ) {
             $this->swap($this->items, $currentNodeIndex, $this->getRightChildIndex($currentNodeIndex));
             $currentNodeIndex = $this->getRightChildIndex($currentNodeIndex);
             $this->heapifyDown($currentNodeIndex);
         }
-
-
-
-
-//        while (
-//            $this->items[$currentNodeIndex] < $this->items[$leftChildIndex] ||
-//            $this->items[$currentNodeIndex] < $this->items[$rightChildIndex]
-//        ) {
-//            if ($this->items[$currentNodeIndex] < $this->items[$leftChildIndex]) {
-//                $this->swap($this->items, $currentNodeIndex, $leftChildIndex);
-//
-//                $currentNodeIndex = $leftChildIndex;
-//                $leftChildIndex = $this->getLeftChildIndex($currentNodeIndex);
-//                $rightChildIndex = $this->getRightChildIndex($currentNodeIndex);
-//
-//            } elseif($this->items[$currentNodeIndex] < $this->items[$rightChildIndex]) {
-//                $this->swap($this->items, $currentNodeIndex, $rightChildIndex);
-//
-//                $currentNodeIndex = $rightChildIndex;
-//                $leftChildIndex = $this->getLeftChildIndex($currentNodeIndex);
-//                $rightChildIndex = $this->getRightChildIndex($currentNodeIndex);
-//            }
-//        }
     }
-}
-
-$m = new MaxHeap([1,2,3,4,5,6,7,8,9]);
-
-while(!$m->isEmpty()) {
-    echo $m->pop() . "\n";
 }

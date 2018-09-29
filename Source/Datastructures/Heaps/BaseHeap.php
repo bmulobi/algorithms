@@ -72,12 +72,11 @@ abstract class BaseHeap implements Heap
     }
 
     // get root i.e max or min element
-    public function pop()
+    public function poll()
     {
         if ($this->isEmpty()) { return; }
 
         $length = count($this->items);
-        echo "length = $length\n";
         if ($length === 1) {
             $rootElement = $this->items[0];
             $this->items = [];
@@ -87,7 +86,7 @@ abstract class BaseHeap implements Heap
         $rootElement = $this->items[0];
         $this->items[0] = $this->items[$length - 1];
         unset($this->items[$length - 1]);
-        $this->heapifyDown($rootElement);
+        $this->heapifyDown(0);
 
         return $rootElement;
     }
