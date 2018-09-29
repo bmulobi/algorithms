@@ -1,29 +1,60 @@
 <?php
+require_once "Source/DataStructures/Heaps/BaseHeap.php";
+require_once "Source/DataStructures/Heaps/Util.php";
 
-class MaxHeap Implements Heap
+class MaxHeap extends BaseHeap implements Heap
 {
-    public function __construct()
-    {
+    use Util;
 
+    protected $items;
+
+    public function __construct(array $items = [])
+    {
+        $this->items = [];
+        $this->constructHeap($items);
     }
 
-    public function constructHeap(array $data)
-    {
-        // TODO: Implement constructHeap() method.
+    // height of tree O(logn)
+    protected function heapifyUp() {
+        $currentNodeIndex = count($this->items) - 1;
+
+        while ($this->hasParent($currentNodeIndex) &&
+            ($this->getParent($currentNodeIndex) < $this->items[$currentNodeIndex])
+        ) {
+            $this->swap($this->items, $currentNodeIndex, $this->getParentIndex($currentNodeIndex));
+
+            $currentNodeIndex = $this->getParentIndex($currentNodeIndex);
+        }
     }
 
-    public function insert($data)
+    // height of tree O(logn)
+    protected function heapifyDown($currentNodeIndex)
     {
-        // TODO: Implement insert() method.
-    }
+        if ($this->hasLeftChild($currentNodeIndex) && $this->hasRightChild($currentNodeIndex)) {
+            if (($this->getLeftChild($currentNodeIndex) > $this->getRightChild($currentNodeIndex))
+            && ($this->getLeftChild($currentNodeIndex) > $this->items[$currentNodeIndex])
+            ) {
+                $this->swap($this->items, $currentNodeIndex, $this->getLeftChildIndex($currentNodeIndex));
+                $this->heapifyDown($this->getLeftChildIndex($currentNodeIndex));
 
-    public function delete()
-    {
-        // TODO: Implement delete() method.
-    }
+            } elseif ($this->getRightChild($currentNodeIndex) > $this->getLeftChild($currentNodeIndex)
+            && ($this->getRightChild($currentNodeIndex) > $this->items[$currentNodeIndex])
+            ) {
+                $this->swap($this->items, $currentNodeIndex, $this->getRightChildIndex($currentNodeIndex));
+                $this->heapifyDown($this->getRightChildIndex($currentNodeIndex));
+            }
 
-    public function pop()
-    {
-        // TODO: Implement pop() method.
+        } elseif ($this->hasLeftChild($currentNodeIndex)
+            && ($this->getLeftChild($currentNodeIndex) > $this->items[$currentNodeIndex])
+        ) {
+            $this->swap($this->items, $currentNodeIndex, $this->getLeftChildIndex($currentNodeIndex));
+            $this->heapifyDown($this->getLeftChildIndex($currentNodeIndex));
+
+        } elseif ($this->hasRightChild($currentNodeIndex)
+            && ($this->getRightChild($currentNodeIndex) > $this->items[$currentNodeIndex])
+        ) {
+            $this->swap($this->items, $currentNodeIndex, $this->getRightChildIndex($currentNodeIndex));
+            $this->heapifyDown($this->getRightChildIndex($currentNodeIndex));
+        }
     }
 }
