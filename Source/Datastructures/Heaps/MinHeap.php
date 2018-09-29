@@ -33,28 +33,26 @@ class MinHeap extends BaseHeap implements Heap
             if ($this->getLeftChild($currentNodeIndex) < $this->getRightChild($currentNodeIndex)
                 && $this->getLeftChild($currentNodeIndex) < $this->items[$currentNodeIndex]) {
                 $this->swap($this->items, $currentNodeIndex, $this->getLeftChildIndex($currentNodeIndex));
-                $currentNodeIndex = $this->getLeftChildIndex($currentNodeIndex);
-                $this->heapifyDown($currentNodeIndex);
-            } elseif ($this->getRightChild($currentNodeIndex) < $this->getLeftChild($currentNodeIndex)
-                && $this->getRightChild($currentNodeIndex) < $this->items[$currentNodeIndex]
+                $this->heapifyDown($this->getLeftChildIndex($currentNodeIndex));
+
+            } elseif (($this->getRightChild($currentNodeIndex) < $this->getLeftChild($currentNodeIndex))
+                && ($this->getRightChild($currentNodeIndex) < $this->items[$currentNodeIndex])
             ) {
                 $this->swap($this->items, $currentNodeIndex, $this->getRightChildIndex($currentNodeIndex));
-                $currentNodeIndex = $this->getRightChildIndex($currentNodeIndex);
-                $this->heapifyDown($currentNodeIndex);
+                $this->heapifyDown($this->getRightChildIndex($currentNodeIndex));
             }
 
         } elseif ($this->hasLeftChild($currentNodeIndex)
-            && $this->getLeftChild($currentNodeIndex) < $this->items[$currentNodeIndex]
+            && ($this->getLeftChild($currentNodeIndex) < $this->items[$currentNodeIndex])
         ) {
             $this->swap($this->items, $currentNodeIndex, $this->getLeftChildIndex($currentNodeIndex));
-            $currentNodeIndex = $this->getLeftChildIndex($currentNodeIndex);
-            $this->heapifyDown($currentNodeIndex);
+            $this->heapifyDown($this->getLeftChildIndex($currentNodeIndex));
+
         } elseif ($this->hasRightChild($currentNodeIndex)
-            && $this->getRightChild($currentNodeIndex) < $this->items[$currentNodeIndex]
+            && ($this->getRightChild($currentNodeIndex) < $this->items[$currentNodeIndex])
         ) {
             $this->swap($this->items, $currentNodeIndex, $this->getRightChildIndex($currentNodeIndex));
-            $currentNodeIndex = $this->getRightChildIndex($currentNodeIndex);
-            $this->heapifyDown($currentNodeIndex);
+            $this->heapifyDown($this->getRightChildIndex($currentNodeIndex));
         }
     }
 }

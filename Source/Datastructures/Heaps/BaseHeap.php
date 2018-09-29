@@ -59,19 +59,21 @@ abstract class BaseHeap implements Heap
         return !$this->items;
     }
 
+    // O(logn)
     public function insert($data)
     {
         array_push($this->items, $data);
         $this->heapifyUp();
     }
 
+    // See what's at the root. O(1)
     public function peek()
     {
         if ($this->isEmpty()) { return; }
         return $this->items[0];
     }
 
-    // get root i.e max or min element
+    // get root i.e max or min element. O(1)
     public function poll()
     {
         if ($this->isEmpty()) { return; }
