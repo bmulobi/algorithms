@@ -10,8 +10,8 @@ class MinHeap extends BaseHeap implements Heap
 
     public function __construct(array $items = [])
     {
-        $this->items = [];
-        $this->constructHeap($items);
+        $this->items = $items;
+        $this->constructHeap();
     }
 
     protected function heapifyUp()
@@ -28,31 +28,22 @@ class MinHeap extends BaseHeap implements Heap
 
     protected function heapifyDown($currentNodeIndex)
     {
-        // refactor this, if there's no left child then there's certainly no right child
-        if ($this->hasLeftChild($currentNodeIndex) && $this->hasRightChild($currentNodeIndex)) {
-            if ($this->getLeftChild($currentNodeIndex) < $this->getRightChild($currentNodeIndex)
-                && $this->getLeftChild($currentNodeIndex) < $this->items[$currentNodeIndex]) {
-                $this->swap($this->items, $currentNodeIndex, $this->getLeftChildIndex($currentNodeIndex));
-                $this->heapifyDown($this->getLeftChildIndex($currentNodeIndex));
+        while ($this->hasLeftChild($currentNodeIndex)) {
+            $min = $this->getLeftChildIndex($currentNodeIndex);
 
-            } elseif (($this->getRightChild($currentNodeIndex) < $this->getLeftChild($currentNodeIndex))
-                && ($this->getRightChild($currentNodeIndex) < $this->items[$currentNodeIndex])
+            if ($this->hasRightChild($currentNodeIndex) &&
+                ($this->getRightChild($currentNodeIndex) < $this->getLeftChild($currentNodeIndex))
             ) {
-                $this->swap($this->items, $currentNodeIndex, $this->getRightChildIndex($currentNodeIndex));
-                $this->heapifyDown($this->getRightChildIndex($currentNodeIndex));
+                $min = $this->getRightChildIndex($currentNodeIndex);
             }
 
-        } elseif ($this->hasLeftChild($currentNodeIndex)
-            && ($this->getLeftChild($currentNodeIndex) < $this->items[$currentNodeIndex])
-        ) {
-            $this->swap($this->items, $currentNodeIndex, $this->getLeftChildIndex($currentNodeIndex));
-            $this->heapifyDown($this->getLeftChildIndex($currentNodeIndex));
+            if ($this->items[$min] < $this->items[$currentNodeIndex]) {
+                $this->swap($this->items, $currentNodeIndex, $min);
+                $currentNodeIndex = $min;
+            } else {
+                break;
+            }
 
-        } elseif ($this->hasRightChild($currentNodeIndex)
-            && ($this->getRightChild($currentNodeIndex) < $this->items[$currentNodeIndex])
-        ) {
-            $this->swap($this->items, $currentNodeIndex, $this->getRightChildIndex($currentNodeIndex));
-            $this->heapifyDown($this->getRightChildIndex($currentNodeIndex));
         }
     }
 }

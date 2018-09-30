@@ -8,10 +8,12 @@ abstract class BaseHeap implements Heap
     abstract protected function heapifyUp();
     abstract protected function heapifyDown($currentNodeIndex);
 
-    protected function constructHeap(array $items)
+    protected function constructHeap()
     {
-        foreach ($items as $item) {
-            $this->insert($item);
+        for ($i = count($this->items) - 1; $i > -1; $i--) {
+            if ($this->hasLeftChild($i)) {
+                $this->heapifyDown($i);
+            }
         }
     }
 
