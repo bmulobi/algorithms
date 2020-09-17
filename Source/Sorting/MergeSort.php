@@ -6,7 +6,7 @@
  * @param int   $midPoint mid index
  * @param int   $right last index
  */
-function merge(Array &$input, int $left, int $midPoint, int $right) {
+function merge(Array &$input, int $left, int $midPoint, int $right): void {
     $numElementsLeft = $midPoint - $left + 1;
     $numElementsRight = $right - $midPoint;
 
@@ -60,7 +60,7 @@ function merge(Array &$input, int $left, int $midPoint, int $right) {
  * @param int   $left  first index
  * @param int   $right last index
  */
-function mergeSort(Array &$input, int $left, int $right) {
+function mergeSort(Array &$input, int $left, int $right): void {
     if ($left < $right) {
         $midPoint = ($left + $right) / 2;
 

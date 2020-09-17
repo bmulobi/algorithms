@@ -10,7 +10,7 @@
 function iterativeBubbleSort(Array $input) {
     $length = count($input);
 
-    for ($i  = 0; $i < $length - 1; $i++) {
+    for ($i = 0; $i < $length - 1; $i++) {
         for ($j = 0; $j < $length - $i - 1; $j++) {
             $stop = true;
 
